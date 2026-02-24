@@ -1,0 +1,27 @@
+{
+  "request_id": "mock-req-001",
+  "planner": "mocked-optimal-architecture-predictor",
+  "status": "ok",
+  "pairs": [
+    {
+      "pair_id": "pair-01",
+      "electerm_hoster": {
+        "name": "electerm-hoster",
+        "container_image": "ghcr.io/adminrealagi/opencodes-binder-webui/electerm-hoster:latest",
+        "mcp_reference": "https://github.com/electerm/electerm/wiki/MCP-Widget-Usage-Guide"
+      },
+      "opencode_hoster": {
+        "name": "opencode-hoster",
+        "container_image": "ghcr.io/adminrealagi/opencodes-binder-webui/opencode-hoster:latest",
+        "mcp_reference": "https://github.com/electerm/electerm/wiki/MCP-Widget-Usage-Guide"
+      },
+      "ui_actions": [
+        "open desktop panel preset",
+        "click terminal widget",
+        "open browser widget",
+        "navigate to chat",
+        "open opencode webui"
+      ]
+    }
+  ]
+}
