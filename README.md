@@ -25,4 +25,5 @@ This is a web app that is a binder of the dockers (Kubernetes machines) with Git
  - write user prompts into log inside of repository (PROMPTS.csv, verbatum)
  - write short log of your actions into log file inside of repository (CHANGELOG.md, as short as changelog usually is)
  - never overwrite manually added documentation like this fragment
+ - when console TUIs or elaborated CLIs with options are written, always add vhs github actions recording their demo into README of according projects
  - 
