@@ -26,4 +26,5 @@ This is a web app that is a binder of the dockers (Kubernetes machines) with Git
  - write short log of your actions into log file inside of repository (CHANGELOG.md, as short as changelog usually is)
  - never overwrite manually added documentation like this fragment
  - when console TUIs or elaborated CLIs with options are written, always add vhs github actions recording their demo into README of according projects
- - 
+ - instead of just giving up or and taking shortcuts, create .agents.todo.<filename> files tombstones with markdown description of issues and next steps for proper implementation
+ - commit incrimentaly trying to cite verbatim in commit comment a part of user prompt related to it, or whole prmpt verbatim if this whole chunk of work is one. commit on each turn of conversation, push by default if possible

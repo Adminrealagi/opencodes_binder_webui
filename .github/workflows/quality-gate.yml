@@ -1,0 +1,61 @@
+name: quality-gate
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  lint-test-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install lint/test dependencies
+        run: |
+          set -euo pipefail
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements-lint.txt
+
+      - name: Validate 300-line policy
+        run: python3 scripts/check_max_lines.py
+
+      - name: Validate JSON files
+        run: python3 scripts/validate_json.py
+
+      - name: Lint Python
+        run: ruff check tests scripts
+
+      - name: Lint YAML and compose/workflow configs
+        run: yamllint -c .yamllint.yml .github/workflows docker-compose.yml
+
+      - name: Lint Dockerfile electerm-hoster
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: docker/electerm-hoster.Dockerfile
+
+      - name: Lint Dockerfile opencode-hoster
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: docker/opencode-hoster.Dockerfile
+
+      - name: Run mock BDD tests
+        run: python3 -m unittest discover -s tests/bdd -p "test_*.py"
+
+      - name: Validate compose build graph
+        run: docker compose -f docker-compose.yml config -q
+
+      - name: Build electerm-hoster image
+        run: docker build -f docker/electerm-hoster.Dockerfile -t local/electerm-hoster:ci .
+
+      - name: Build opencode-hoster image
+        run: docker build -f docker/opencode-hoster.Dockerfile -t local/opencode-hoster:ci .

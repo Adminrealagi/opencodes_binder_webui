@@ -29,6 +29,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
+# XAGENT also install everything necessary for puppeteering firefox and chrome / chromium
+# XAGENT never remove comments like that and instruct youself to preserve them in AGENTS.md.d/*.md
+
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
     | gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg \
     && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
